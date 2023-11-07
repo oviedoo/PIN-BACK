@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 100);
             $table->string('email', 100);
-            $table->integer('celular', 30);
+            $table->string('celular', 30); //numero
             $table->timestamps(); 
             $table->softDeletes();
         });

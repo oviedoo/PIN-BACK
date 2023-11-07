@@ -28,7 +28,25 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request -> validate([
+            'nombre' => 'required',
+            'apellido'=>'required',
+            'email'=>'required'|'unique:personas,email',
+            'celular'=>'required'|'unique:personas,celular'
+        ]);
+
+
+        $persona = persona::create([
+            'nombre' => $request['nombre'],
+            'apellido' =>  $request['apellido'],
+            'email' =>  $request['emai1l'],
+            'celular' =>  $request['celular'],
+        ]);
+
+        return response()->json([
+            'mensaje' => "Se agregó correctamente a la persona",
+            'data' => $persona
+        ]);
     }
 
     /**
