@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendPost;
 use App\Models\Persona;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PersonaController extends Controller
 {
@@ -31,7 +33,7 @@ class PersonaController extends Controller
         $request -> validate([
             'nombre' => 'required',
             'apellido'=>'required',
-            'email'=>'required'|'unique:personas,email',
+            'email'=>'required'|'unique:personas,email', //unique, que sea unico en la persona. (un solo email)
             'celular'=>'required'|'unique:personas,celular'
         ]);
 
@@ -42,8 +44,18 @@ class PersonaController extends Controller
             'email' =>  $request['emai1l'],
             'celular' =>  $request['celular'],
         ]);
-
-        return response()->json([
+        //Envio de mail
+        $details = [
+            'mensaje' => "El usuario". $request['nombre'] ."a sido registrado",
+            'nombre' => $request['nombre'],
+            'apellido' =>  $request['apellido'],
+            'email' =>  $request['emai1l'],
+            'celular' =>  $request['celular'],
+        ];
+        Mail::to('jeremiasoviedo01l@gmail.com')->send(new SendPost($details));
+        
+        
+            return response()->json([
             'mensaje' => "Se agregó correctamente a la persona",
             'data' => $persona
         ]);
