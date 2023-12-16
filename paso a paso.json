@@ -1,0 +1,66 @@
+0- php artisan list : ver los comandos
+//primero hacemos las conexiones a la base de datos en el archivo de .env
+1- crear un modelo, controlador, crear una migracion
+
+modelo:
+php artisan make:model Person // en singular y la primera en mayuscula
+// crea el archivo en la carpeta app/models
+controlador:
+php artisan make:controller PersonController 
+php artisan make:controller PersonController -r // r= de resource
+
+migracion:
+php artisan make:migration create_personas_table 
+
+todo junto:
+php artisan make:model Person -mcr
+
+2-Libreria pint (solamente en entorno de desarrollo, para un buen manejo de codigo)
+composer require laravel/pint --dev
+
+3- para migrar para la db es:
+php artisan migrate
+
+-para yo saber que tablas ya migraron?
+php artisan migrate:status
+
+-cuando sale una columna en db pero no en laravel.
+php artisan make:migration add_column_apellido_persons
+
+poner en la migracion en el fuction up el siguiente codigo
+// Schema::table('persons', function (Blueprint $table) {
+//     $table->string('apellido', 100)->after('firts_name')->default('');
+// });
+poner el comando de migracion
+y por ultimo poner el modelo Person 'firts_name', 'apellido',
+
+4- Para resgistrar en la db debemos crear una ruta que indique la store del contoller persona y message
+-vamos a la routes/api
+creamos las rutas
+// Route::post('add-person', [PersonController::class, 'store']);
+-en el store de los contolers poner las validaciones
+
+// public function store(Request $request)
+// {
+//     $request->validate([
+//         'first_name' => 'required',
+//         'email' => 'required|unique:persons,email',
+//         'cell_phone_number' => 'required',
+//     ]);
+
+//     $person = Person::create([
+//         'first_name' => $request['first_name'],
+//         'email' => $request['email'],
+//         'cell_phone_number' => $request['cell_phone_number'],
+        
+//     ]);
+
+//     return response()->json([
+//         'message' => 'Se agregó correctamente a la Persona',
+//         'data' => $person
+//     ]);
+// }
+
+5- ir a postman:
+// http://localhost/(nombre del proyecto)/public/api/add-person
+

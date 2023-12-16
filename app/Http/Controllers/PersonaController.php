@@ -30,7 +30,7 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        $request -> validate([
+        $request->validate([
             'nombre' => 'required',
             'apellido'=>'required',
             'email'=>'required'|'unique:personas,email', //unique, que sea unico en la persona. (un solo email)
@@ -56,7 +56,7 @@ class PersonaController extends Controller
         
         
             return response()->json([
-            'mensaje' => "Se agregó correctamente a la persona",
+            'mensaje' => 'Se agregó correctamente a la persona',
             'data' => $persona
         ]);
     }

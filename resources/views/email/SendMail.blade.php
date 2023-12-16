@@ -6,12 +6,12 @@
     <title>Envio Mail</title>
 </head>
 <body>
-    <p>{{$details[mensaje]}}</p>
+    <p>{{$details['mensaje']}}</p>
     <ul>
-        <li>Nombre:{{$details[nombre]}}</li>
-        <li>Apellido:{{$details[apellido]}}</li>
-        <li>Email: {{$details[email]}}</li>
-        <li>Celular: {{$details[celular]}}</li>
+        <li>Nombre:{{$details['nombre']}}</li>
+        <li>Apellido:{{$details['apellido']}}</li>
+        <li>Email: {{$details['email']}}</li>
+        <li>Celular: {{$details['celular']}}</li>
        
     </ul>
 </body>
